@@ -1,0 +1,73 @@
+<DOCTYPE HTML>
+<HTML>
+<meta charset="utf-8">
+
+<head>
+    <style>
+    #div1 .active {
+        background: yellow;
+    }
+    
+    #div1 div {
+        width: 200px;
+        height: 200px;
+        background: #CCC;
+        border: 1px solid #999;
+        display: none;
+    }
+    </style>
+<script>
+window.onload = function(){
+	var oTab = new TabSwtch('div1');
+}
+
+function TabSwtch(id) {
+    var oDiv = document.getElementById(id);
+    this.aBtn = oDiv.getElementsByTagName('input');
+    this.aDiv = oDiv.getElementsByTagName('div');
+
+    var _this = this;
+
+    for (var i = 0; i < this.aBtn.length; i++) {
+        this.aBtn[i].index = i;
+        this.aBtn[i].onclick = function(){
+        	_this.tab(this);
+        }
+
+    }
+};
+
+TabSwtch.prototype.tab = function(oBtn) {
+    for (var i = 0; i < this.aBtn.length; i++) {
+        this.aBtn[i].className = '';
+        this.aDiv[i].style.display = '';
+    }
+    oBtn.className = 'active';
+    this.aDiv[oBtn.index].style.display = 'block';
+}; 
+
+/*改写成面向对象的程序
+	1.前提：所有都在onload里面
+	2.改写：不能有函数嵌套，可以有全局变量
+	3.onload   →   构造函数
+	  全局变量  →   属性
+	  函数     →   方法   
+	4.改错  this         */
+
+</script>
+    </head>
+
+    <body>
+        <div id="div1">
+            <input class="active" type="button" value="教育" />
+            <input type="button" value="培训" />
+            <input type="button" value="招生" />
+            <input type="button" value="出国" />
+            <div style="display:block;">111</div>
+            <div>222</div>
+            <div>333</div>
+            <div>444</div>
+        </div>
+    </body>
+
+    </HTML>
